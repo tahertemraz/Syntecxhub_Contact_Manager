@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/contacts";
+const API_URL = "https://contact-manager-backend-6yvg.onrender.com/api/contacts";
 
 const initialFormData = {
   name: "",
