@@ -9,7 +9,30 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://syntecxhub-contact-manager.vercel.app",
+  "https://syntecxhub-contact-manager-qotauvbmc-tahertemrazs-projects.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+app.options("*", cors());
+
 app.use(express.json());
 
 app.use("/api/contacts", contactRoutes);
